@@ -6,9 +6,10 @@ fun main(){
 
     var partides: Int?
     var tiradesPerPartida: Int?
-
+    println("Diguem el teu nom:")
+    val nomUsuari: String = readln()
     println(DAUS)
-    println("Benvingut/da al joc dels daus.\nPer guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
+    println("Benvingut/da $nomUsuari al joc dels daus.\nPer guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
     println(DAUS)
 
     // Llegim el número de partides que volem jugar
@@ -72,5 +73,4 @@ fun main(){
             println("Heu empatat!")
         }
     }
-    println("Hola")
 }
