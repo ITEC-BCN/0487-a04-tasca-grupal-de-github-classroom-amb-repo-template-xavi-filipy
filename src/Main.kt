@@ -6,9 +6,10 @@ fun main(){
 
     var partides: Int?
     var tiradesPerPartida: Int?
+    var numPartida: Int = 1
 
-    //Li pregunto el nom
-    println("Diguem el teu nom:")
+    //Li pregunta el nom
+    print("Diguem el teu nom: ")
     val nomUsuari: String = readln()
 
     println(DAUS)
@@ -30,7 +31,7 @@ fun main(){
     do {
         println("Quantes tirades vols fer per cada partida? (de 1 a 6)")
         tiradesPerPartida = readLine()?.toIntOrNull()
-
+        println("--------------------------------------------------------")
         if (tiradesPerPartida != null && (tiradesPerPartida < 1 || tiradesPerPartida > 6)){
             tiradesPerPartida = null
             println("ERROR: Valor no acceptat!")
@@ -39,9 +40,11 @@ fun main(){
 
     // Declarem la matriu
     var tiradesGuardades: Array<IntArray>
+    var tiradesGuardadesCpu: Array<IntArray>
 
     // Inicialitzem la matriu de partides files i (tiradesPerPartida + 1) columnes
     tiradesGuardades = Array(partides){IntArray((tiradesPerPartida + 1)) }
+    tiradesGuardadesCpu = Array(partides){IntArray((tiradesPerPartida + 1)) }
 
     // Repetim tantes vegades com partides
     for(partida in 0 until partides) {
@@ -61,19 +64,32 @@ fun main(){
             tiradesGuardades[partida][tiradesPerPartida] += tiradaActual
 
             /** Tirades CPU **/
-            acumuladorCPU += Random.nextInt(1, 6 + 1)
+            println("Tirada de la CPU. (Intent $tirada)")
+            acumuladorCPU = Random.nextInt(1, 6 + 1)
+            println("Ha tret un ${CARES_DAU[acumuladorCPU-1]} !")
+
+            //Guardem la tirada de la CPU
+            tiradesGuardadesCpu[partida][tirada] = acumuladorCPU
+
+            //Sumem els punts de la CPU
+            tiradesGuardadesCpu[partida][tiradesPerPartida] += acumuladorCPU
+            println("---------------------------")
         }
-
-        println("Partida acabada!")
+        //Ensenya els punts de cada jugador
+        println("Partida $numPartida acabada!")
         println("$nomUsuari has aconseguit ${tiradesGuardades[partida][tiradesPerPartida]} punts")
-        println("La CPU ha aconseguit $acumuladorCPU punts")
+        println("La CPU ha aconseguit ${tiradesGuardadesCpu[partida][tiradesPerPartida]} punts")
 
-        if (tiradesGuardades[partida][tiradesPerPartida] > acumuladorCPU){
-            println("Has guanyat!")
-        }else if (tiradesGuardades[partida][tiradesPerPartida] < acumuladorCPU){
-            println("Has perdut!")
+        //Missatge segons si guanya, perd o empata
+        if (tiradesGuardades[partida][tiradesPerPartida] > tiradesGuardadesCpu[partida][tiradesPerPartida]){
+            println("Felicitats $nomUsuari has guanyat!")
+        }else if (tiradesGuardades[partida][tiradesPerPartida] < tiradesGuardadesCpu[partida][tiradesPerPartida]){
+            println("Has perdut $nomUsuari quina llastima!")
         }else{
             println("Heu empatat!")
         }
+        println("---------------------------")
+        //Li suma 1 al contador de partides
+        numPartida++
     }
 }
