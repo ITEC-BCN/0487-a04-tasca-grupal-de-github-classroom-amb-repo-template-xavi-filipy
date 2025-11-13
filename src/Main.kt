@@ -6,8 +6,11 @@ fun main(){
 
     var partides: Int?
     var tiradesPerPartida: Int?
+
+    //Li pregunto el nom
     println("Diguem el teu nom:")
     val nomUsuari: String = readln()
+
     println(DAUS)
     println("Benvingut/da $nomUsuari al joc dels daus.\nPer guanyar cada partida, la suma dels punts de les teves tirades dels teus daus ha de ser superior a la de la CPU")
     println(DAUS)
@@ -47,7 +50,7 @@ fun main(){
 
         for (tirada in 0 until tiradesGuardades[partida].size - 1) {
             /** Tirades persona **/
-            println("Tira el dau! (Intent $tirada)")
+            println("Tira el dau $nomUsuari! (Intent $tirada)")
             tiradaActual = Random.nextInt(1, 6 + 1)
             println("Has tret un ${CARES_DAU[tiradaActual-1]} !")
 
@@ -62,7 +65,7 @@ fun main(){
         }
 
         println("Partida acabada!")
-        println("Tu has aconseguit ${tiradesGuardades[partida][tiradesPerPartida]} punts")
+        println("$nomUsuari has aconseguit ${tiradesGuardades[partida][tiradesPerPartida]} punts")
         println("La CPU ha aconseguit $acumuladorCPU punts")
 
         if (tiradesGuardades[partida][tiradesPerPartida] > acumuladorCPU){
